@@ -398,7 +398,6 @@ FodyWeavers.xsd
 *.sln.iml
 **/CPU.ip_user_files
 **/CPU.sim
-**/CPU.xpr
 **/CPU.cache
 **/CPU.hw
 **/CPU.gen
