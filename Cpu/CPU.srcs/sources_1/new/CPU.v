@@ -18,25 +18,34 @@ localparam NOP = 0, LTM = 1, MTR = 2, RTR = 3, SUB = 4, JUMP_LESS = 5, MTRK = 6,
 
 /*
     NOP
-    КОП
+    OP
     --------------------
     LTM
-    КОП literal adr_m_1
+    OP literal adr_m_1
     --------------------
     MTR
-    КОП adr_r_1 00000000 adr_m_1
+    OP adr_r_1 00000000 adr_m_1
     --------------------
     RTR
-    КОП adr_r1 adr_r2 00000000 
+    OP adr_r1 adr_r2 0000...
     --------------------
     SUB
-    КОП adr_r_1 adr_r_2 adr_r_3 00000000 
+    OP adr_r_1 adr_r2 adr_r3 000..
     --------------------
-    
-    КОП 
+    JUMP_LESS
+    OP adr_r1 adr_r2 00 adr_to_jump
     --------------------
-
-
+    MTRK
+    OP adr_r1 adr_r2 0000
+    --------------------
+    RTMK
+    OP adr_r1 adr_r2 0000
+    --------------------
+    JMP
+    OP 0x10 adr_to_jump
+    --------------------
+    SUM
+    OP adr_r_1 adr_r2 adr_r3 000..
 */
 
 reg [CMD_SIZE - 1: 0] cmd_mem [0: CMD_MEM_SIZE - 1];
