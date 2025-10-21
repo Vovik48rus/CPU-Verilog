@@ -68,7 +68,7 @@ initial begin
     begin
         RF[i] <= 0;    
     end
-    RF[1] <= 1; 
+    // RF[1] <= 1; 
     stage_counter <= 0;
     pc <= 0;
 end
@@ -164,7 +164,7 @@ begin
                 LTM, MTRK, MTR, RTR, RTMK, JMP: res <= op1;
                 SUB: res <= op1 - op2;
                 SUM: res <= op1 + op2;
-                JUMP_LESS: res <= op1 >= op2;
+                JUMP_LESS: res <= op1 < op2;
             endcase  
         end
     end
