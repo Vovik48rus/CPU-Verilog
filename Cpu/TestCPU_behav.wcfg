@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TestCPU_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TestCPU" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="299.001 ns"></ZoomEndTime>
+      <Cursor1Time time="0.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="352"></NameColumnWidth>
+      <ValueColumnWidth column_width="274"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="2" />
+   <wvobject fp_name="/TestCPU/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="group2" type="group">
+      <obj_property name="label">cpu_1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestCPU/cpu_1/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/cmd_mem" type="array">
+         <obj_property name="ElementShortName">cmd_mem[0:1023][23:0]</obj_property>
+         <obj_property name="ObjectShortName">cmd_mem[0:1023][23:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/mem" type="array">
+         <obj_property name="ElementShortName">mem[0:1023][9:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[0:1023][9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/cmd_reg" type="array">
+         <obj_property name="ElementShortName">cmd_reg[23:0]</obj_property>
+         <obj_property name="ObjectShortName">cmd_reg[23:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/RF" type="array">
+         <obj_property name="ElementShortName">RF[0:15][9:0]</obj_property>
+         <obj_property name="ObjectShortName">RF[0:15][9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/pc" type="array">
+         <obj_property name="ElementShortName">pc[9:0]</obj_property>
+         <obj_property name="ObjectShortName">pc[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/stage_counter" type="array">
+         <obj_property name="ElementShortName">stage_counter[2:0]</obj_property>
+         <obj_property name="ObjectShortName">stage_counter[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/op1" type="array">
+         <obj_property name="ElementShortName">op1[9:0]</obj_property>
+         <obj_property name="ObjectShortName">op1[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/op2" type="array">
+         <obj_property name="ElementShortName">op2[9:0]</obj_property>
+         <obj_property name="ObjectShortName">op2[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/res" type="array">
+         <obj_property name="ElementShortName">res[9:0]</obj_property>
+         <obj_property name="ObjectShortName">res[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/i" type="array">
+         <obj_property name="ElementShortName">i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/cop" type="array">
+         <obj_property name="ElementShortName">cop[3:0]</obj_property>
+         <obj_property name="ObjectShortName">cop[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/adr_m_1" type="array">
+         <obj_property name="ElementShortName">adr_m_1[9:0]</obj_property>
+         <obj_property name="ObjectShortName">adr_m_1[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/literal" type="array">
+         <obj_property name="ElementShortName">literal[9:0]</obj_property>
+         <obj_property name="ObjectShortName">literal[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/adr_r_1" type="array">
+         <obj_property name="ElementShortName">adr_r_1[3:0]</obj_property>
+         <obj_property name="ObjectShortName">adr_r_1[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/adr_r_2" type="array">
+         <obj_property name="ElementShortName">adr_r_2[3:0]</obj_property>
+         <obj_property name="ObjectShortName">adr_r_2[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/adr_r_3" type="array">
+         <obj_property name="ElementShortName">adr_r_3[3:0]</obj_property>
+         <obj_property name="ObjectShortName">adr_r_3[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/CMD_SIZE" type="array">
+         <obj_property name="ElementShortName">CMD_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CMD_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/CMD_MEM_SIZE" type="array">
+         <obj_property name="ElementShortName">CMD_MEM_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CMD_MEM_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/LIT_SIZE" type="array">
+         <obj_property name="ElementShortName">LIT_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">LIT_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/DATA_MEM_SIZE" type="array">
+         <obj_property name="ElementShortName">DATA_MEM_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">DATA_MEM_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/RF_SIZE" type="array">
+         <obj_property name="ElementShortName">RF_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">RF_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/ADDR_CMD_MEM_SIZE" type="array">
+         <obj_property name="ElementShortName">ADDR_CMD_MEM_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ADDR_CMD_MEM_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/ADDR_DATA_MEM_SIZE" type="array">
+         <obj_property name="ElementShortName">ADDR_DATA_MEM_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ADDR_DATA_MEM_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/ADDR_RF_SIZE" type="array">
+         <obj_property name="ElementShortName">ADDR_RF_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ADDR_RF_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/KOP_SIZE" type="array">
+         <obj_property name="ElementShortName">KOP_SIZE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">KOP_SIZE[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/NOP" type="array">
+         <obj_property name="ElementShortName">NOP[31:0]</obj_property>
+         <obj_property name="ObjectShortName">NOP[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/LTM" type="array">
+         <obj_property name="ElementShortName">LTM[31:0]</obj_property>
+         <obj_property name="ObjectShortName">LTM[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/MTR" type="array">
+         <obj_property name="ElementShortName">MTR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">MTR[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/RTR" type="array">
+         <obj_property name="ElementShortName">RTR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">RTR[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/SUB" type="array">
+         <obj_property name="ElementShortName">SUB[31:0]</obj_property>
+         <obj_property name="ObjectShortName">SUB[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/JUMP_LESS" type="array">
+         <obj_property name="ElementShortName">JUMP_LESS[31:0]</obj_property>
+         <obj_property name="ObjectShortName">JUMP_LESS[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/MTRK" type="array">
+         <obj_property name="ElementShortName">MTRK[31:0]</obj_property>
+         <obj_property name="ObjectShortName">MTRK[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/RTMK" type="array">
+         <obj_property name="ElementShortName">RTMK[31:0]</obj_property>
+         <obj_property name="ObjectShortName">RTMK[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/JMP" type="array">
+         <obj_property name="ElementShortName">JMP[31:0]</obj_property>
+         <obj_property name="ObjectShortName">JMP[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestCPU/cpu_1/SUM" type="array">
+         <obj_property name="ElementShortName">SUM[31:0]</obj_property>
+         <obj_property name="ObjectShortName">SUM[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

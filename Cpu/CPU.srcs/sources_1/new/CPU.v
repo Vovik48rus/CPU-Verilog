@@ -9,7 +9,7 @@ localparam CMD_MEM_SIZE = 1024;
 localparam LIT_SIZE = 10;
 localparam DATA_MEM_SIZE = 1024;
 localparam RF_SIZE = 16;
-localparam ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE);
+localparam ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE); // размер cp
 localparam ADDR_DATA_MEM_SIZE = $clog2(DATA_MEM_SIZE);
 localparam ADDR_RF_SIZE = $clog2(RF_SIZE);
 localparam KOP_SIZE = 4;
@@ -33,7 +33,7 @@ localparam NOP = 0, LTM = 1, MTR = 2, RTR = 3, SUB = 4, JUMP_LESS = 5, MTRK = 6,
     OP adr_r_1 adr_r2 adr_r3 000..
     --------------------
     JUMP_LESS
-    OP adr_r1 adr_r2 00 adr_to_jump
+    OP adr_r1 adr_r2 adr_to_jump
     --------------------
     MTRK
     OP adr_r1 adr_r2 0000
@@ -62,22 +62,24 @@ initial begin
     $readmemb("program.mem", cmd_mem);
     for (i = 0; i < DATA_MEM_SIZE ; i = i + 1)
     begin
-        mem[i] <= 0;    
+        //mem[i] <= 0;    
     end
     for (i = 0; i < RF_SIZE ; i = i + 1)
     begin
         RF[i] <= 0;    
     end
+    stage_counter <= 0;
+    pc <= 0;
 end
 
-wire [KOP_SIZE - 1: 0] cop = cmd_reg[CMD_SIZE - 1 -: KOP_SIZE];
-wire [ADDR_DATA_MEM_SIZE - 1: 0] adr_m_1 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE -: ADDR_DATA_MEM_SIZE];
-wire [LIT_SIZE - 1: 0] literal = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - ADDR_DATA_MEM_SIZE -: LIT_SIZE];
+wire [KOP_SIZE - 1: 0] cop = cmd_reg[CMD_SIZE - 1 -: KOP_SIZE]; // +
+wire [ADDR_DATA_MEM_SIZE - 1: 0] adr_m_1 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - LIT_SIZE -: ADDR_DATA_MEM_SIZE];
+wire [LIT_SIZE - 1: 0] literal = cmd_reg[CMD_SIZE - 1 - KOP_SIZE -: LIT_SIZE]; // +
 wire [ADDR_RF_SIZE - 1: 0] adr_r_1 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE -: ADDR_RF_SIZE];
 wire [ADDR_RF_SIZE - 1: 0] adr_r_2 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - ADDR_RF_SIZE -: ADDR_RF_SIZE];
 wire [ADDR_RF_SIZE - 1: 0] adr_r_3 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE];
 
-wire [ADDR_CMD_MEM_SIZE - 1: 0] adr_to_jmp = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - 2*ADDR_RF_SIZE - 2 -: ADDR_CMD_MEM_SIZE];
+wire [ADDR_CMD_MEM_SIZE - 1: 0] adr_to_jump = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - 2*ADDR_RF_SIZE -: ADDR_CMD_MEM_SIZE];
 
 always @(posedge clk)
 begin
@@ -126,7 +128,7 @@ begin
                 MTR: op1 <= mem[adr_m_1];
                 RTR, MTRK: op1 <= RF[adr_r_2];
                 SUB, JUMP_LESS, RTMK, SUM: op1 <= RF[adr_r_1];
-                JMP: op1 <= adr_to_jmp;
+                JMP: op1 <= adr_to_jump;
             endcase  
         end
     end
@@ -181,7 +183,7 @@ begin
                 begin
                     if (res != 0)
                     begin
-                        pc <= adr_to_jmp;
+                        pc <= adr_to_jump;
                     end
                     else begin
                         pc <= pc + 1;
