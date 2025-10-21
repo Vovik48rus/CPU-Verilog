@@ -23,7 +23,7 @@ def int_to_bin(value: int, size):
     return bin(value)[2:].rjust(size, '0')
 
 
-with open("insertion_sort.txt", encoding="UTF-8") as f:
+with open("insertion_sort9.txt", encoding="UTF-8") as f:
     bin_code = ""
     for i in f.read().replace(";\n", ";").split(';')[:-1:]:
         operands_lst = []
@@ -31,23 +31,24 @@ with open("insertion_sort.txt", encoding="UTF-8") as f:
             command_str, operands_str = i.split(' ', maxsplit=1)
             operands_lst.extend(list(map(int, operands_str.split(', '))))
         else:
-            print(i)
             command_str = i
 
         command = CMD.get_command(command_str)
         s = int_to_bin(command.value, KOP_SIZE)
 
-        print(command, operands_lst)
+        print(command.value, *operands_lst)
+
+        # print(command, operands_lst)
         match command:
             case CMD.NOP:
                 pass
             case CMD.LTM:
-                s += int_to_bin(operands_lst[0], LIT_SIZE)
-                s += int_to_bin(operands_lst[1], ADDR_DATA_MEM_SIZE)
+                s += int_to_bin(operands_lst[1], LIT_SIZE)
+                s += int_to_bin(operands_lst[0], ADDR_DATA_MEM_SIZE)
             case CMD.MTR:
-                s += int_to_bin(operands_lst[0], ADDR_RF_SIZE)
+                s += int_to_bin(operands_lst[1], ADDR_RF_SIZE)
                 s += '0' * (LIT_SIZE - ADDR_RF_SIZE)
-                s += int_to_bin(operands_lst[1], ADDR_DATA_MEM_SIZE)
+                s += int_to_bin(operands_lst[0], ADDR_DATA_MEM_SIZE)
             case CMD.RTR:
                 s += int_to_bin(operands_lst[0], ADDR_RF_SIZE)
                 s += int_to_bin(operands_lst[1], ADDR_RF_SIZE)
@@ -75,7 +76,7 @@ with open("insertion_sort.txt", encoding="UTF-8") as f:
 
         if len(s) > CMD_SIZE:
             raise Exception(f"Command {command} too big, max size is {CMD_SIZE}")
-        print(s)
+        # print(s)
         bin_code += s.ljust(CMD_SIZE, '0') + '\n'
     bin_code = bin_code[:-1:]
 
