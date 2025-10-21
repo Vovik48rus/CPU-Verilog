@@ -43,12 +43,12 @@ with open("insertion_sort9.txt", encoding="UTF-8") as f:
             case CMD.NOP:
                 pass
             case CMD.LTM:
-                s += int_to_bin(operands_lst[1], LIT_SIZE)
-                s += int_to_bin(operands_lst[0], ADDR_DATA_MEM_SIZE)
+                s += int_to_bin(operands_lst[0], LIT_SIZE)
+                s += int_to_bin(operands_lst[1], ADDR_DATA_MEM_SIZE)
             case CMD.MTR:
-                s += int_to_bin(operands_lst[1], ADDR_RF_SIZE)
+                s += int_to_bin(operands_lst[0], ADDR_RF_SIZE)
                 s += '0' * (LIT_SIZE - ADDR_RF_SIZE)
-                s += int_to_bin(operands_lst[0], ADDR_DATA_MEM_SIZE)
+                s += int_to_bin(operands_lst[1], ADDR_DATA_MEM_SIZE)
             case CMD.RTR:
                 s += int_to_bin(operands_lst[0], ADDR_RF_SIZE)
                 s += int_to_bin(operands_lst[1], ADDR_RF_SIZE)
