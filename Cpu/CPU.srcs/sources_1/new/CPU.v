@@ -49,7 +49,7 @@ localparam NOP = 0, LTM = 1, MTR = 2, RTR = 3, SUB = 4, JUMP_LESS = 5, MTRK = 6,
 */
 
 reg [CMD_SIZE - 1: 0] cmd_mem [0: CMD_MEM_SIZE - 1];
-reg [LIT_SIZE - 1: 0] mem [0:DATA_MEM_SIZE - 1];
+reg [LIT_SIZE - 1: 0] mem [0: DATA_MEM_SIZE - 1];
 reg [CMD_SIZE - 1: 0] cmd_reg;
 reg [LIT_SIZE - 1: 0] RF [0: RF_SIZE - 1];
 reg [ADDR_CMD_MEM_SIZE - 1: 0] pc;
@@ -125,7 +125,7 @@ begin
                 LTM: op1 <= literal;
                 MTR: op1 <= mem[adr_m_1];
                 RTR, MTRK: op1 <= RF[adr_r_2];
-                SUB, JUMP_LESS, RTMK: op1 <= RF[adr_r_1];
+                SUB, JUMP_LESS, RTMK, SUM: op1 <= RF[adr_r_1];
                 JMP: op1 <= adr_to_jmp;
             endcase  
         end
