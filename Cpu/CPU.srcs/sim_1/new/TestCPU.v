@@ -10,6 +10,14 @@ begin
     clk = 0;
 end
 
+always@ (posedge clk)
+begin
+    if (cpu_1.pc == 28)
+    begin
+        $finish;
+    end
+end
+
 CPU cpu_1(
     .clk(clk),
     .reset(0)

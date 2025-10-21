@@ -68,6 +68,7 @@ initial begin
     begin
         RF[i] <= 0;    
     end
+    RF[1] <= 1; 
     stage_counter <= 0;
     pc <= 0;
 end
@@ -163,7 +164,7 @@ begin
                 LTM, MTRK, MTR, RTR, RTMK, JMP: res <= op1;
                 SUB: res <= op1 - op2;
                 SUM: res <= op1 + op2;
-                JUMP_LESS: res <= op1 < op2;
+                JUMP_LESS: res <= op1 >= op2;
             endcase  
         end
     end
@@ -206,6 +207,7 @@ begin
             SUB: RF[adr_r_3] <= res;
             MTRK: RF[adr_r_1] <= mem[res];
             RTMK: mem[res] <= RF[adr_r_2];
+            SUM: RF[adr_r_3] <= res;
         endcase    
     end
 end
