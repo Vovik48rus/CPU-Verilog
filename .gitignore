@@ -412,3 +412,4 @@ Cpu/dfx_runtime.txt
 /CPU/pract_1.gen
 Cpu/*.orig
 Cpu/CPU.srcs/sources_1/new/*.orig
+InstrToBinTranslator/program.txt
