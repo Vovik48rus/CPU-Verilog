@@ -4,6 +4,12 @@ from .ProgramData import ProgramData
 from .TranslatorReport import TranslatorReport
 
 
+def int_to_bin(value: int, size):
+    if len(bin(value)[2::]) > size:
+        print(f"Warning {value} is too big, max size is {size}")
+    return bin(value)[2:].rjust(size, '0')
+
+
 class Translator:
     def __init__(self, program: str, program_data: ProgramData = ProgramData()):
         self.program = program
@@ -34,52 +40,51 @@ class Translator:
                 command_str = i
 
             command = CMD.get_command(command_str)
-            s = int_to_bin(command.value, self.KOP_SIZE)
+            s = int_to_bin(command.value, self.program_data.KOP_SIZE)
 
             print(command.value, *operands_lst)
 
-            # print(command, operands_lst)
             match command:
                 case CMD.NOP:
                     pass
                 case CMD.LTM:
-                    s += int_to_bin(operands_lst[0], self.LIT_SIZE)
-                    s += int_to_bin(operands_lst[1], self.ADDR_DATA_MEM_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.LIT_SIZE)
+                    s += int_to_bin(operands_lst[1], self.program_data.ADDR_DATA_MEM_SIZE)
                 case CMD.MTR:
-                    s += int_to_bin(operands_lst[0], self.ADDR_RF_SIZE)
-                    s += '0' * (self.LIT_SIZE - self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[1], self.ADDR_DATA_MEM_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.ADDR_RF_SIZE)
+                    s += '0' * (self.program_data.LIT_SIZE - self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[1], self.program_data.ADDR_DATA_MEM_SIZE)
                 case CMD.RTR:
-                    s += int_to_bin(operands_lst[0], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[1], self.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[1], self.program_data.ADDR_RF_SIZE)
                 case CMD.SUB:
-                    s += int_to_bin(operands_lst[0], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[1], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[2], self.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[1], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[2], self.program_data.ADDR_RF_SIZE)
                 case CMD.JUMP_LESS:
-                    s += int_to_bin(operands_lst[0], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[1], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[2], self.ADDR_CMD_MEM_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[1], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[2], self.program_data.ADDR_CMD_MEM_SIZE)
                 case CMD.MTRK:
-                    s += int_to_bin(operands_lst[0], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[1], self.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[1], self.program_data.ADDR_RF_SIZE)
                 case CMD.RTMK:
-                    s += int_to_bin(operands_lst[0], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[1], self.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[1], self.program_data.ADDR_RF_SIZE)
                 case CMD.JMP:
-                    s += "0" * (2 * self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[0], self.ADDR_CMD_MEM_SIZE)
+                    s += "0" * (2 * self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.ADDR_CMD_MEM_SIZE)
                 case CMD.SUM:
-                    s += int_to_bin(operands_lst[0], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[1], self.ADDR_RF_SIZE)
-                    s += int_to_bin(operands_lst[2], self.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[0], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[1], self.program_data.ADDR_RF_SIZE)
+                    s += int_to_bin(operands_lst[2], self.program_data.ADDR_RF_SIZE)
 
-            if len(s) > self.CMD_SIZE:
-                raise Exception(f"Command {command} too big, max size is {self.CMD_SIZE}")
-            # print(s)
-            bin_code += s.ljust(self.CMD_SIZE, '0') + '\n'
+            if len(s) > self.program_data.CMD_SIZE:
+                raise Exception(f"Command {command} too big, max size is {self.program_data.CMD_SIZE}")
 
-        bin_code = bin_code[:-1:]
+            bin_code += s.ljust(self.program_data.CMD_SIZE, '0') + '\n'
+
+        bin_code = bin_code[:-1]
         report.bin_code = bin_code
         self.report = report
         return report

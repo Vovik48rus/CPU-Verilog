@@ -14,4 +14,3 @@ class ParseCommandProgram:
 
     def _do_parse_program(self):
         pass
-
