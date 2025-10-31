@@ -46,6 +46,7 @@ class DebuggerInput:
                     self._run_command(default_command)
                     self.default = self._get_state_from_command(default_command)
                     self.last_step = state
+                    self.step()
                 else:
                     raise ValueError("Не указана команда для установки по умолчанию.")
             case "h" | "help" | "?":
