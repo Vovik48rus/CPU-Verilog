@@ -82,7 +82,7 @@ class CPU:
         instruction.addr_r_2 = int(command[8:12], 2)
         instruction.addr_r_3 = int(command[12:16], 2)
         instruction.addr_m_1 = int(command[14:24], 2)
-        instruction.addr_to_jump = int(command[14:24], 2)
+        instruction.addr_to_jump = int(command[12:22], 2)
         return instruction
 
     def _op1Fetch(self, instruction: Instruction) -> int:
