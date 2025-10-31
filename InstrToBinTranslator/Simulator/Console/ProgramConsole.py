@@ -36,6 +36,8 @@ class ProgramConsole:
         for i, line in enumerate(lines):
             if i == index:
                 mark_lines.append("---> " + line)
+            elif index == len(lines) and i == len(lines) - 1:
+                mark_lines.append(" END " + line)
             else:
                 mark_lines.append("     " + line)
         return mark_lines

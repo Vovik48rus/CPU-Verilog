@@ -7,7 +7,7 @@ from rich.console import Group
 from rich.padding import Padding
 
 from Simulator.Console.DebuggerViewData import DebuggerViewData
-from Debugger.ProgramConsole import ProgramConsole
+from Simulator.Console.ProgramConsole import ProgramConsole
 from Simulator.CPU import CPU
 
 

@@ -14,5 +14,3 @@ with open("program.txt", "r") as file:
     for i in range(len(point_registry.lines)):
         if point_registry.has_point_at_line(i):
             print(i, point_registry.get_point_by_line_number(i).name)
-
-

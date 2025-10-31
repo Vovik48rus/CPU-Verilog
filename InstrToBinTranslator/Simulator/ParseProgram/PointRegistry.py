@@ -22,16 +22,16 @@ class PointRegistry:
                 return True
         return False
 
-    def get_point(self, name: str) -> Point | None:
+    def get_point(self, name: str) -> Point:
         for point in self.points:
             if point.name == name:
                 return point
-        return None
+        raise KeyError(name)
 
-    def get_point_by_line_number(self, line_number: int) -> Point | None:
+    def get_point_by_line_number(self, line_number: int) -> Point:
         if 0 <= line_number < len(self._lines):
             return self._lines[line_number].point
-        return None
+        raise KeyError(line_number)
 
     def has_point_at_line(self, line_number: int) -> bool:
         if 0 <= line_number < len(self._lines):
