@@ -68,7 +68,7 @@ initial begin
     begin
         RF[i] <= 0;    
     end
-    // RF[1] <= 1; 
+    RF[1] <= 1; 
     stage_counter <= 0;
     pc <= 0;
 end
@@ -182,7 +182,7 @@ begin
             case (cop)
                 JUMP_LESS:
                 begin
-                    if (res != 0)
+                    if (res == 0)
                     begin
                         pc <= adr_to_jump;
                     end
