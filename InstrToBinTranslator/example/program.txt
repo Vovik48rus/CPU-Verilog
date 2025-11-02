@@ -1,0 +1,25 @@
+LTM 1 0;
+LTM 7 1; @point1
+LTM 4 2;
+LTM 3 3;
+LTM 0 4;
+LTM 5 5;
+RTR 2 1;
+MTR 3 5;
+SUB 3 1 3;
+JUMP_LESS 2 3 24; @point1.5
+MTRK 4 2; @point2
+RTR 5 2;
+SUB 5 1 6;
+MTRK 7 6;
+JUMP_LESS 4 7 21; @point3
+JUMP_LESS 0 5 21; @point4
+MTRK 8 5;
+RTMK 6 8;
+RTMK 5 7;
+RTR 5 6;
+JMP 12; @abc
+RTMK 5 4;
+SUM 2 1 2;
+JMP 9;
+NOP;
