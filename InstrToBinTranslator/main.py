@@ -3,7 +3,7 @@ from Simulator.CPU import CPU
 from Simulator.Debugger import Debugger
 
 if __name__ == "__main__":
-    with open("example/program.txt", "r") as file:
+    with open("example/numLength.txt", "r") as file:
         program = file.read()
     translator = Translator(program)
     report = translator.run()
