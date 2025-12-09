@@ -42,7 +42,7 @@ class Translator:
             command = CMD.get_command(command_str)
             s = int_to_bin(command.value, self.program_data.KOP_SIZE)
 
-            print(command.value, *operands_lst)
+            # print(command.value, *operands_lst)
 
             match command:
                 case CMD.NOP:
@@ -89,6 +89,6 @@ class Translator:
         self.report = report
         return report
 
-    def save(self, filename="program.mem"):
-        with open(filename, "w", encoding="UTF-8") as f2:
+    def save(self, path="program.mem"):
+        with open(path, "w", encoding="UTF-8") as f2:
             f2.write(self.report.bin_code)
