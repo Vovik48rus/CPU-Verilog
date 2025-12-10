@@ -36,3 +36,10 @@ class CMD(Enum):
         elif s == 'SUM':
             return cls.SUM
         return None
+
+    @classmethod
+    def from_value(cls, value: int):
+        for c in cls:
+            if c.value == value:
+                return c
+        return None
