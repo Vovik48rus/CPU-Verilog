@@ -62,6 +62,7 @@ class CPU:
         self.op2: int = self._op2Fetch(self.instruction)
         self.res: int = self._execute(self.instruction, self.op1, self.op2)
         self._writeback(self.instruction, self.res)
+        self._program_counter_next(self.instruction, self.res)
 
     def run(self):
         while not self.is_finished():
@@ -129,28 +130,30 @@ class CPU:
 
     def _writeback(self, instruction: Instruction, res: int) -> None:
         match instruction.opCode:
-            case CMD.NOP.value:
-                self._pc += 1
             case CMD.LTM.value:
                 self._DMEM[instruction.addr_m_1] = res
-                self._pc += 1
             case CMD.MTR.value | CMD.RTR.value:
                 self._RF[instruction.addr_r_1] = res
-                self._pc += 1
             case CMD.SUB.value | CMD.SUM.value:
                 self._RF[instruction.addr_r_3] = res
+            case CMD.MTRK.value:
+                self._RF[instruction.addr_r_1] = self._DMEM[res]
+            case CMD.RTMK.value:
+                self._DMEM[res] = self._RF[instruction.addr_r_2]
+            case CMD.JMP.value | CMD.NOP.value | CMD.JUMP_LESS.value:
+                pass
+            case _:
+                raise Exception(f"Некорректный код инструкции: {instruction.opCode}")
+
+    def _program_counter_next(self, instruction: Instruction, res: int) -> None:
+        match instruction.opCode:
+            case CMD.NOP.value | CMD.LTM.value | CMD.MTR.value | CMD.RTR.value | CMD.SUB.value | CMD.SUM.value | CMD.MTRK.value | CMD.RTMK.value:
                 self._pc += 1
             case CMD.JUMP_LESS.value:
                 if not res:
                     self._pc = instruction.addr_to_jump
                 else:
                     self._pc += 1
-            case CMD.MTRK.value:
-                self._RF[instruction.addr_r_1] = self._DMEM[res]
-                self._pc += 1
-            case CMD.RTMK.value:
-                self._DMEM[res] = self._RF[instruction.addr_r_2]
-                self._pc += 1
             case CMD.JMP.value:
                 self._pc = res
             case _:
