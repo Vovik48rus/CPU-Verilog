@@ -12,16 +12,15 @@ end
 
 always@ (posedge clk)
 begin
-    if (cpu_1.pc == 28)
-    begin
-        $finish;
-    end
+     if (CPU_pipeline.pc == 100)
+     begin
+         $finish;
+     end
 end
 
-CPU cpu_1(
-    .clk(clk),
-    .reset(0)
+CPU_pipeline cpu(
+    .clk(clk), 
+    .reset(1'b0)
 );
-
 
 endmodule
