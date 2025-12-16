@@ -4,42 +4,42 @@ module CPU_pipeline(
     input clk, reset
 );
 
-localparam WORD_SIZE = 10; // длина переменной котору записываем в MEM
+localparam LIT_SIZE = 10; // длина переменной котору записываем в MEM
 localparam CMD_SIZE = 24; // общая длина командной строки
-localparam PROG_SIZE = 1024; // максимальное количество строк в программе, максимальное количество команд
+localparam CMD_MEM_SIZE = 1024; // максимальное количество строк в программе, максимальное количество команд
 localparam RF_SIZE = 16; // количество RF в процессоре 
-localparam RF_ADR_SIZE = $clog2(RF_SIZE); // длина адреса RF 
+localparam ADDR_RF_SIZE = $clog2(RF_SIZE); // длина адреса RF 
 localparam DATA_MEM_SIZE = 1024; // максимальное количество переменных хранимых в MEM памяти  
-localparam DATA_MEM_ADR_SIZE = $clog2(DATA_MEM_SIZE); // длина адреса числа хранящегося в MEM 
+localparam ADDR_DATA_MEM_SIZE = $clog2(DATA_MEM_SIZE); // длина адреса числа хранящегося в MEM 
 localparam COP_SIZE = 4; // длина представления команды в двоичном виде, без аргументов
-localparam PROG_ADR_SIZE = $clog2(PROG_SIZE); // длина номера строки в файле
+localparam ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE); // длина номера строки в файле
 
 localparam 
     NOP = 0, LTM = 1, MTR = 2, RTR = 3, SUB = 4, 
     JUMP_LESS = 5, MTRK = 6, RTMK = 7, JUMP = 8,
     SUM = 9;
 
-reg [WORD_SIZE - 1 : 0] RF [0 : RF_SIZE - 1];
-reg [WORD_SIZE - 1 : 0] MEM_DATA [0 : DATA_MEM_SIZE - 1];
-reg [CMD_SIZE  - 1 : 0] PROG [0 : PROG_SIZE - 1]; // Загружаемая программа 
+reg [LIT_SIZE - 1 : 0] RF [0 : RF_SIZE - 1];
+reg [LIT_SIZE - 1 : 0] MEM_DATA [0 : DATA_MEM_SIZE - 1];
+reg [CMD_SIZE  - 1 : 0] MEM [0 : CMD_MEM_SIZE - 1]; // Загружаемая программа 
 
-reg [PROG_ADR_SIZE - 1 : 0] pc, pc_prev, pc_next;
+reg [ADDR_CMD_MEM_SIZE - 1 : 0] pc, pc_prev, pc_next;
 reg [CMD_SIZE  - 1 : 0] cmd_reg_0, cmd_reg_0_next;
 reg [CMD_SIZE  - 1 : 0] cmd_reg_1, cmd_reg_1_next;
 reg [CMD_SIZE  - 1 : 0] cmd_reg_2, cmd_reg_2_next;
 reg [CMD_SIZE  - 1 : 0] cmd_reg_3, cmd_reg_3_next;
 
-reg [WORD_SIZE - 1 : 0] opA_1, opA_1_next;
-reg [WORD_SIZE - 1 : 0] opA_2, opA_2_next;
-reg [WORD_SIZE - 1 : 0] opB_2, opB_2_next;
-reg [WORD_SIZE - 1 : 0] opB_3, opB_3_next;
-reg [WORD_SIZE - 1 : 0] res, res_next;
+reg [LIT_SIZE - 1 : 0] opA_1, opA_1_next;
+reg [LIT_SIZE - 1 : 0] opA_2, opA_2_next;
+reg [LIT_SIZE - 1 : 0] opB_2, opB_2_next;
+reg [LIT_SIZE - 1 : 0] opB_3, opB_3_next;
+reg [LIT_SIZE - 1 : 0] res, res_next;
 
 //initialization
 integer i;
 initial
 begin
-    $readmemb("program.mem", PROG);
+    $readmemb("program.mem", MEM);
     for(i = 0; i < DATA_MEM_SIZE; i = i + 1)
         MEM_DATA[i] <= 0;
     for(i = 2; i < RF_SIZE; i = i + 1)
@@ -90,7 +90,7 @@ always@*
 // Fetch
 //----------------
 always@*
-    cmd_reg_0_next <= PROG[pc];
+    cmd_reg_0_next <= MEM[pc];
 
 always@(posedge clk)
     if (reset)
@@ -101,27 +101,27 @@ always@(posedge clk)
         cmd_reg_0 <= cmd_reg_0_next;
 
 // always@*
-//     cmd_reg_0_next <= PROG[pc];
+//     cmd_reg_0_next <= MEM[pc];
 
 //----------------
 // Decode 1
 //----------------
 
 wire [COP_SIZE          - 1 : 0] cop_1        = cmd_reg_0[CMD_SIZE - 1                          -: COP_SIZE];
-wire [WORD_SIZE         - 1 : 0] literal      = cmd_reg_0[CMD_SIZE - 1 - COP_SIZE               -: WORD_SIZE];
-wire [DATA_MEM_ADR_SIZE - 1 : 0] adr_m_1_1    = cmd_reg_0[DATA_MEM_ADR_SIZE - 1                  : 0];
-wire [RF_ADR_SIZE       - 1 : 0] adr_r_1_1    = cmd_reg_0[CMD_SIZE - 1 - COP_SIZE               -: RF_ADR_SIZE];
-wire [RF_ADR_SIZE       - 1 : 0] adr_r_2_1    = cmd_reg_0[CMD_SIZE - 1 - COP_SIZE - RF_ADR_SIZE -: RF_ADR_SIZE];
-wire [PROG_ADR_SIZE     - 1 : 0] adr_to_jmp_1 = cmd_reg_0[PROG_ADR_SIZE - 1                      : 0];
+wire [LIT_SIZE         - 1 : 0] literal      = cmd_reg_0[CMD_SIZE - 1 - COP_SIZE               -: LIT_SIZE];
+wire [ADDR_DATA_MEM_SIZE - 1 : 0] adr_m_1_1    = cmd_reg_0[ADDR_DATA_MEM_SIZE - 1                  : 0];
+wire [ADDR_RF_SIZE       - 1 : 0] adr_r_1_1    = cmd_reg_0[CMD_SIZE - 1 - COP_SIZE               -: ADDR_RF_SIZE];
+wire [ADDR_RF_SIZE       - 1 : 0] adr_r_2_1    = cmd_reg_0[CMD_SIZE - 1 - COP_SIZE - ADDR_RF_SIZE -: ADDR_RF_SIZE];
+wire [ADDR_CMD_MEM_SIZE     - 1 : 0] adr_to_jmp_1 = cmd_reg_0[ADDR_CMD_MEM_SIZE - 1                      : 0];
 
-// wire [KOP_SIZE - 1: 0] cop = cmd_reg[CMD_SIZE - 1 -: KOP_SIZE]; // +
-// wire [ADDR_DATA_MEM_SIZE - 1: 0] adr_m_1 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - LIT_SIZE -: ADDR_DATA_MEM_SIZE];
-// wire [LIT_SIZE - 1: 0] literal = cmd_reg[CMD_SIZE - 1 - KOP_SIZE -: LIT_SIZE]; // +
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_1 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE -: ADDR_RF_SIZE];
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_2 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - ADDR_RF_SIZE -: ADDR_RF_SIZE];
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_3 = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE];
+// wire [COP_SIZE - 1: 0] cop = cmd_reg[CMD_SIZE - 1 -: COP_SIZE]; // +
+// wire [LIT_SIZE - 1: 0] literal = cmd_reg[CMD_SIZE - 1 - COP_SIZE -: LIT_SIZE]; // +
+// wire [ADDR_DATA_MEM_SIZE - 1: 0] adr_m_1 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - LIT_SIZE -: ADDR_DATA_MEM_SIZE];
+// wire [ADDR_RF_SIZE - 1: 0] adr_r_1 = cmd_reg[CMD_SIZE - 1 - COP_SIZE -: ADDR_RF_SIZE];  // +
+// wire [ADDR_RF_SIZE - 1: 0] adr_r_2 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - ADDR_RF_SIZE -: ADDR_RF_SIZE];  // +
+// wire [ADDR_RF_SIZE - 1: 0] adr_r_3 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE]; // +
 
-// wire [ADDR_CMD_MEM_SIZE - 1: 0] adr_to_jump = cmd_reg[CMD_SIZE - 1 - KOP_SIZE - 2*ADDR_RF_SIZE -: ADDR_CMD_MEM_SIZE];
+// wire [ADDR_CMD_MEM_SIZE - 1: 0] adr_to_jump = cmd_reg[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_CMD_MEM_SIZE];
 
 
 always@(posedge clk)
@@ -248,10 +248,10 @@ always@*
 //----------------
 
 wire [COP_SIZE          - 1 : 0] cop_2       = cmd_reg_1[CMD_SIZE - 1         -: COP_SIZE];
-wire [DATA_MEM_ADR_SIZE - 1 : 0] adr_m_1_2   = cmd_reg_1[DATA_MEM_ADR_SIZE - 1 : 0];
-wire [RF_ADR_SIZE       - 1 : 0] adr_r_2_2   = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE - RF_ADR_SIZE -: RF_ADR_SIZE];
-wire [RF_ADR_SIZE       - 1 : 0] adr_res_1_2 = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE               -: RF_ADR_SIZE]; //adr_r_
-wire [RF_ADR_SIZE       - 1 : 0] adr_res_2_2 = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE - 2*RF_ADR_SIZE -: RF_ADR_SIZE]; //adr_r_3
+wire [ADDR_DATA_MEM_SIZE - 1 : 0] adr_m_1_2   = cmd_reg_1[ADDR_DATA_MEM_SIZE - 1 : 0];
+wire [ADDR_RF_SIZE       - 1 : 0] adr_r_2_2   = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE - ADDR_RF_SIZE -: ADDR_RF_SIZE];
+wire [ADDR_RF_SIZE       - 1 : 0] adr_res_1_2 = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE               -: ADDR_RF_SIZE]; //adr_r_
+wire [ADDR_RF_SIZE       - 1 : 0] adr_res_2_2 = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE]; //adr_r_3
 
 always@(posedge clk)
     if (reset)
@@ -356,9 +356,9 @@ always@*
 // Execute
 //----------------
 wire [COP_SIZE - 1 : 0] cop_3 = cmd_reg_2[CMD_SIZE - 1 -: COP_SIZE];
-wire [RF_ADR_SIZE       - 1 : 0] adr_res_1_3   = cmd_reg_2[CMD_SIZE - 1 - COP_SIZE               -: RF_ADR_SIZE];
-wire [DATA_MEM_ADR_SIZE - 1 : 0] adr_res_m_1_3 = cmd_reg_2[DATA_MEM_ADR_SIZE - 1 : 0];
-wire [RF_ADR_SIZE       - 1 : 0] adr_res_2_3   = cmd_reg_2[CMD_SIZE - 1 - COP_SIZE - 2*RF_ADR_SIZE -: RF_ADR_SIZE];
+wire [ADDR_RF_SIZE       - 1 : 0] adr_res_1_3   = cmd_reg_2[CMD_SIZE - 1 - COP_SIZE               -: ADDR_RF_SIZE];
+wire [ADDR_DATA_MEM_SIZE - 1 : 0] adr_res_m_1_3 = cmd_reg_2[ADDR_DATA_MEM_SIZE - 1 : 0];
+wire [ADDR_RF_SIZE       - 1 : 0] adr_res_2_3   = cmd_reg_2[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE];
 always@(posedge clk)
     if (reset)
         cmd_reg_3 <= 0;
@@ -401,16 +401,16 @@ always@*
 // WriteBack
 //----------------
 wire [COP_SIZE - 1 : 0] cop_4 = cmd_reg_3[CMD_SIZE - 1 -: COP_SIZE];
-wire [DATA_MEM_ADR_SIZE - 1 : 0] adr_m_1_4    = cmd_reg_3[DATA_MEM_ADR_SIZE - 1 : 0];
-wire [PROG_ADR_SIZE     - 1 : 0] adr_to_jmp_4 = cmd_reg_3[PROG_ADR_SIZE - 1 : 0];
-wire [RF_ADR_SIZE       - 1 : 0] adr_r_1_4    = cmd_reg_3[CMD_SIZE - 1 - COP_SIZE               -: RF_ADR_SIZE];
-wire [RF_ADR_SIZE       - 1 : 0] adr_r_3_4    = cmd_reg_3[CMD_SIZE - 1 - COP_SIZE - 2*RF_ADR_SIZE -: RF_ADR_SIZE];
-reg  [WORD_SIZE         - 1 : 0] data_mem_data = 0;
-reg  [DATA_MEM_ADR_SIZE - 1 : 0] data_mem_adr = 0;
+wire [ADDR_DATA_MEM_SIZE - 1 : 0] adr_m_1_4    = cmd_reg_3[ADDR_DATA_MEM_SIZE - 1 : 0];
+wire [ADDR_CMD_MEM_SIZE     - 1 : 0] adr_to_jmp_4 = cmd_reg_3[ADDR_CMD_MEM_SIZE - 1 : 0];
+wire [ADDR_RF_SIZE       - 1 : 0] adr_r_1_4    = cmd_reg_3[CMD_SIZE - 1 - COP_SIZE               -: ADDR_RF_SIZE];
+wire [ADDR_RF_SIZE       - 1 : 0] adr_r_3_4    = cmd_reg_3[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE];
+reg  [LIT_SIZE         - 1 : 0] data_mem_data = 0;
+reg  [ADDR_DATA_MEM_SIZE - 1 : 0] data_mem_adr = 0;
 reg data_mem_en = 0;
 
-reg [WORD_SIZE         - 1 : 0] RF_data = 0;
-reg [RF_ADR_SIZE       - 1 : 0] RF_adr = 0;
+reg [LIT_SIZE         - 1 : 0] RF_data = 0;
+reg [ADDR_RF_SIZE       - 1 : 0] RF_adr = 0;
 reg RF_en = 0;
 
 always@*
