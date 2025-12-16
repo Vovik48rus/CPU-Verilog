@@ -100,9 +100,6 @@ always@(posedge clk)
     else if(cmd_1_can_move && cmd_2_can_move)
         cmd_reg_0 <= cmd_reg_0_next;
 
-// always@*
-//     cmd_reg_0_next <= MEM[pc];
-
 //----------------
 // Decode 1
 //----------------
@@ -252,15 +249,6 @@ wire [ADDR_DATA_MEM_SIZE - 1 : 0] adr_m_1_2 = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE 
 wire [ADDR_RF_SIZE - 1 : 0] adr_r_2_2 = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE - ADDR_RF_SIZE -: ADDR_RF_SIZE];
 wire [ADDR_RF_SIZE - 1 : 0] adr_res_1_2 = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE -: ADDR_RF_SIZE]; //adr_r_
 wire [ADDR_RF_SIZE - 1 : 0] adr_res_2_2 = cmd_reg_1[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE]; //adr_r_3
-
-// wire [COP_SIZE - 1: 0] cop = cmd_reg[CMD_SIZE - 1 -: COP_SIZE]; // +
-// wire [LIT_SIZE - 1: 0] literal = cmd_reg[CMD_SIZE - 1 - COP_SIZE -: LIT_SIZE]; // +
-// wire [ADDR_DATA_MEM_SIZE - 1: 0] adr_m_1 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - LIT_SIZE -: ADDR_DATA_MEM_SIZE];
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_1 = cmd_reg[CMD_SIZE - 1 - COP_SIZE -: ADDR_RF_SIZE];  // +
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_2 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - ADDR_RF_SIZE -: ADDR_RF_SIZE];  // +
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_3 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE]; //
-
-// wire [ADDR_CMD_MEM_SIZE - 1: 0] adr_to_jump = cmd_reg[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_CMD_MEM_SIZE];
 
 always@(posedge clk)
     if (reset)
@@ -418,15 +406,6 @@ wire [ADDR_RF_SIZE - 1 : 0] adr_r_3_4 = cmd_reg_3[CMD_SIZE - 1 - COP_SIZE - 2*AD
 reg  [LIT_SIZE - 1 : 0] data_mem_data = 0;
 reg  [ADDR_DATA_MEM_SIZE - 1 : 0] data_mem_adr = 0;
 reg data_mem_en = 0;
-
-// wire [COP_SIZE - 1: 0] cop = cmd_reg[CMD_SIZE - 1 -: COP_SIZE]; // +
-// wire [LIT_SIZE - 1: 0] literal = cmd_reg[CMD_SIZE - 1 - COP_SIZE -: LIT_SIZE]; // +
-// wire [ADDR_DATA_MEM_SIZE - 1: 0] adr_m_1 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - LIT_SIZE -: ADDR_DATA_MEM_SIZE];
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_1 = cmd_reg[CMD_SIZE - 1 - COP_SIZE -: ADDR_RF_SIZE];  // +
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_2 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - ADDR_RF_SIZE -: ADDR_RF_SIZE];  // +
-// wire [ADDR_RF_SIZE - 1: 0] adr_r_3 = cmd_reg[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_RF_SIZE]; //
-
-// wire [ADDR_CMD_MEM_SIZE - 1: 0] adr_to_jump = cmd_reg[CMD_SIZE - 1 - COP_SIZE - 2*ADDR_RF_SIZE -: ADDR_CMD_MEM_SIZE];
 
 reg [LIT_SIZE         - 1 : 0] RF_data = 0;
 reg [ADDR_RF_SIZE       - 1 : 0] RF_adr = 0;
