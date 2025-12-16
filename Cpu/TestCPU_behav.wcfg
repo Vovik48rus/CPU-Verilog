@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="687.556 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,014.489 ns"></ZoomEndTime>
-      <Cursor1Time time="855.000 ns"></Cursor1Time>
+      <ZoomStartTime time="9,667.089 ns"></ZoomStartTime>
+      <ZoomEndTime time="9,954.917 ns"></ZoomEndTime>
+      <Cursor1Time time="9,795.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="284"></NameColumnWidth>
-      <ValueColumnWidth column_width="372"></ValueColumnWidth>
+      <ValueColumnWidth column_width="367"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="2" />
    <wvobject fp_name="/TestCPU/clk" type="logic">
@@ -39,15 +39,12 @@
       <wvobject fp_name="/TestCPU/cpu/RF" type="array">
          <obj_property name="ElementShortName">RF[0:15][9:0]</obj_property>
          <obj_property name="ObjectShortName">RF[0:15][9:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/TestCPU/cpu/MEM_DATA" type="array">
          <obj_property name="ElementShortName">MEM_DATA[0:1023][9:0]</obj_property>
          <obj_property name="ObjectShortName">MEM_DATA[0:1023][9:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/TestCPU/cpu/PROG" type="array">
-         <obj_property name="ElementShortName">PROG[0:1023][23:0]</obj_property>
-         <obj_property name="ObjectShortName">PROG[0:1023][23:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TestCPU/cpu/pc" type="array">
          <obj_property name="ElementShortName">pc[9:0]</obj_property>
@@ -262,41 +259,21 @@
          <obj_property name="ElementShortName">RF_en</obj_property>
          <obj_property name="ObjectShortName">RF_en</obj_property>
       </wvobject>
-      <wvobject fp_name="/TestCPU/cpu/WORD_SIZE" type="array">
-         <obj_property name="ElementShortName">WORD_SIZE[31:0]</obj_property>
-         <obj_property name="ObjectShortName">WORD_SIZE[31:0]</obj_property>
-      </wvobject>
       <wvobject fp_name="/TestCPU/cpu/CMD_SIZE" type="array">
          <obj_property name="ElementShortName">CMD_SIZE[31:0]</obj_property>
          <obj_property name="ObjectShortName">CMD_SIZE[31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/TestCPU/cpu/PROG_SIZE" type="array">
-         <obj_property name="ElementShortName">PROG_SIZE[31:0]</obj_property>
-         <obj_property name="ObjectShortName">PROG_SIZE[31:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TestCPU/cpu/RF_SIZE" type="array">
          <obj_property name="ElementShortName">RF_SIZE[31:0]</obj_property>
          <obj_property name="ObjectShortName">RF_SIZE[31:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TestCPU/cpu/RF_ADR_SIZE" type="array">
-         <obj_property name="ElementShortName">RF_ADR_SIZE[31:0]</obj_property>
-         <obj_property name="ObjectShortName">RF_ADR_SIZE[31:0]</obj_property>
-      </wvobject>
       <wvobject fp_name="/TestCPU/cpu/DATA_MEM_SIZE" type="array">
          <obj_property name="ElementShortName">DATA_MEM_SIZE[31:0]</obj_property>
          <obj_property name="ObjectShortName">DATA_MEM_SIZE[31:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TestCPU/cpu/DATA_MEM_ADR_SIZE" type="array">
-         <obj_property name="ElementShortName">DATA_MEM_ADR_SIZE[31:0]</obj_property>
-         <obj_property name="ObjectShortName">DATA_MEM_ADR_SIZE[31:0]</obj_property>
-      </wvobject>
       <wvobject fp_name="/TestCPU/cpu/COP_SIZE" type="array">
          <obj_property name="ElementShortName">COP_SIZE[31:0]</obj_property>
          <obj_property name="ObjectShortName">COP_SIZE[31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/TestCPU/cpu/PROG_ADR_SIZE" type="array">
-         <obj_property name="ElementShortName">PROG_ADR_SIZE[31:0]</obj_property>
-         <obj_property name="ObjectShortName">PROG_ADR_SIZE[31:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TestCPU/cpu/NOP" type="array">
          <obj_property name="ElementShortName">NOP[31:0]</obj_property>
