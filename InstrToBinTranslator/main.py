@@ -68,12 +68,18 @@ if __name__ == "__main__":
 
     cpu = PipelineCPU(report.bin_code)
     pprint(cpu.IMEM)
+    pprint(cpu.pc)
+    pprint(cpu.RF)
+    pprint(cpu.DMEM[0:20])
+    pprint([instruction_to_command(i) for i in
+            [cpu._decode(cpu._fetch()), cpu.state.instruction_op1Fetch, cpu.state.instruction_op2Fetch,
+             cpu.state.instruction_execute, cpu.state.instruction_writeback]])
     while not cpu.is_finished():
         cpu.step()
-        pprint(cpu.RF)
         pprint(cpu.pc)
+        pprint(cpu.RF)
         pprint(cpu.DMEM[0:20])
-        pprint([instruction_to_command(i) for i in [cpu.state.instruction_op1Fetch, cpu.state.instruction_op2Fetch, cpu.state.instruction_execute, cpu.state.instruction_writeback]])
+        pprint([instruction_to_command(i) for i in
+                [cpu._decode(cpu._fetch()), cpu.state.instruction_op1Fetch, cpu.state.instruction_op2Fetch,
+                 cpu.state.instruction_execute, cpu.state.instruction_writeback]])
         input()
-
-    # print(CMD.MTR.name)
